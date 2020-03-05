@@ -2,17 +2,19 @@ const mongoose = require("mongoose");
 
 const todoSchema = new mongoose.Schema(
   {
-    title: String,
+    title: {
+      type: String,
+      required: true
+    },
     description: String
-    // created: Date,
-    // lastModified: Date
   },
   {
-    collection: "todos"
-  },
-  {
+    collection: "todos",
     timestamps: true
   }
 );
 
-module.exports = mongoose.model("ToDo", todoSchema);
+module.exports = {
+  schema: todoSchema,
+  model: mongoose.model("ToDo", todoSchema)
+};

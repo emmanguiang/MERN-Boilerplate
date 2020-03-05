@@ -2,15 +2,15 @@ let express = require("express");
 let mongoose = require("mongoose");
 let cors = require("cors");
 let bodyParser = require("body-parser");
-let dbConfig = require("./database/db");
+let config = require("./config");
 
 // Express Route
-const todoRoute = require("../server/routes/todo.routes");
+const baseRoute = require("./routes");
 
 // Connecting mongoDB Database
 mongoose.Promise = global.Promise;
 mongoose
-  .connect(dbConfig.db, {
+  .connect(config.db, {
     useNewUrlParser: true
   })
   .then(
@@ -30,7 +30,7 @@ app.use(
   })
 );
 app.use(cors());
-app.use("/todos", todoRoute);
+app.use(config.baseUrl, baseRoute);
 
 // PORT
 const port = process.env.PORT || 4000;

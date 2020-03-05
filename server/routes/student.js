@@ -2,24 +2,23 @@ let mongoose = require("mongoose"),
   express = require("express"),
   router = express.Router();
 
-// Todo Model
-let todoSchema = require("../models/ToDo");
+// Student Model
+let studentModel = require("../models/Student");
 
-// CREATE Todo
-router.route("/create-todo").post((req, res, next) => {
-  todoSchema.create(req.body, (error, data) => {
+// CREATE Student
+router.route("/create-student").post((req, res, next) => {
+  studentModel.create(req.body, (error, data) => {
     if (error) {
       return next(error);
     } else {
-      console.log(data);
       res.json(data);
     }
   });
 });
 
-// READ Todo
+// READ Students
 router.route("/").get((req, res) => {
-  todoSchema.find((error, data) => {
+  studentModel.find((error, data) => {
     if (error) {
       return next(error);
     } else {
@@ -28,9 +27,9 @@ router.route("/").get((req, res) => {
   });
 });
 
-// Get Single Todo
-router.route("/edit-todo/:id").get((req, res) => {
-  todoSchema.findById(req.params.id, (error, data) => {
+// Get Single Student
+router.route("/edit-student/:id").get((req, res) => {
+  studentModel.findById(req.params.id, (error, data) => {
     if (error) {
       return next(error);
     } else {
@@ -39,9 +38,9 @@ router.route("/edit-todo/:id").get((req, res) => {
   });
 });
 
-// Update Todo
-router.route("/update-todo/:id").put((req, res, next) => {
-  todoSchema.findByIdAndUpdate(
+// Update Student
+router.route("/update-student/:id").put((req, res, next) => {
+  studentModel.findByIdAndUpdate(
     req.params.id,
     {
       $set: req.body
@@ -49,18 +48,17 @@ router.route("/update-todo/:id").put((req, res, next) => {
     (error, data) => {
       if (error) {
         return next(error);
-        console.log(error);
       } else {
         res.json(data);
-        console.log("Todo updated successfully!");
+        console.log("Student updated successfully !");
       }
     }
   );
 });
 
-// Delete Todo
-router.route("/delete-todo/:id").delete((req, res, next) => {
-  todoSchema.findByIdAndRemove(req.params.id, (error, data) => {
+// Delete Student
+router.route("/delete-student/:id").delete((req, res, next) => {
+  studentModel.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error);
     } else {
